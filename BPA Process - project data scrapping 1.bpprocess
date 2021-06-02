@@ -1,0 +1,154 @@
+﻿<process name="project data scrapping 1" version="1.0" bpversion="6.10.1.35171" narrative="" byrefcollection="true" preferredid="a561dde2-5742-4f9c-a5a5-0e2a49a5daca">
+  <view>
+    <camerax>0</camerax>
+    <cameray>173</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="5076ccc7-b03d-4c9a-ac86-aca5414780eb" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <onsuccess>8f337db5-dbe4-41a0-b88b-d5c1375ba2c0</onsuccess>
+  </stage>
+  <stage stageid="478c0dd4-8216-4ca3-9e38-3135336de0df" name="End" type="End">
+    <display x="405" y="375" />
+  </stage>
+  <stage stageid="a046c100-ba85-477c-9c1c-f49665efdf7c" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="8f337db5-dbe4-41a0-b88b-d5c1375ba2c0" name="MS Excel VBO::Create Instance" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="flag" name="Enable Events" friendlyname="Enable Events" narrative="Flag to indicate that events should be enabled / disabled on the attached instance - defaulted to True" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="handle" friendlyname="handle" narrative="An integer which can be used to identify the created instance in subsequent actions" stage="handle" />
+    </outputs>
+    <onsuccess>5e3be9a6-c8e9-4933-b892-4944e9061ec8</onsuccess>
+    <resource object="MS Excel VBO" action="Create Instance" />
+  </stage>
+  <stage stageid="5e3be9a6-c8e9-4933-b892-4944e9061ec8" name="MS Excel VBO::Open Workbook" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the required workbook should be opened. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="File name" friendlyname="File name" narrative="The path and name of the file which should be opened." expr="&quot;C:\Users\NAITHIKA SREE\OneDrive\Desktop\Data scrapping.xlsx&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name used by Excel to identify the workbook - usually this is the file name (without the path)." stage="Workbook Name" />
+    </outputs>
+    <onsuccess>b3255d1e-e6c7-481d-9fa7-c230cd159b9e</onsuccess>
+    <resource object="MS Excel VBO" action="Open Workbook" />
+  </stage>
+  <stage stageid="b3255d1e-e6c7-481d-9fa7-c230cd159b9e" name="MS Excel VBO::Get Worksheet As Collection" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="75" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the worksheet which should be retrieved resides. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook which contains the sheet required. The default empty text indicates the currently active workbook on the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet within the specified workbook which should be written to a collection. The default empty text indicates the currently active worksheet within the specified workbook." expr="&quot;Sheet1&quot;" />
+      <input type="text" name="Fetch Data With Method" friendlyname="Fetch Data With Method" narrative="The method used to fetch data from cells in the worksheet. Options include Text, Value, and Value2. The default indicates Value will be used." expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data" friendlyname="Data" narrative="The collection containing the data from the specified worksheet - the column IDs will be gleaned from the first row on the sheet being retrieved." stage="phones details" />
+    </outputs>
+    <onsuccess>6def308c-b363-4ef7-8fe6-11dbd7f06f1c</onsuccess>
+    <resource object="MS Excel VBO" action="Get Worksheet As Collection" />
+  </stage>
+  <stage stageid="6def308c-b363-4ef7-8fe6-11dbd7f06f1c" name="project data scrapping::Action 1" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" />
+    <onsuccess>90c04a63-871b-40c6-9164-852676190a4d</onsuccess>
+    <resource object="project data scrapping" action="launch" />
+  </stage>
+  <stage stageid="e6cefd49-4ece-4b29-afab-207139902eb3" name="handle" type="Data">
+    <display x="255" y="-45" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="74db5750-bed6-4fc2-ab8a-c6c65480807f" name="Workbook Name" type="Data">
+    <display x="300" y="-45" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="90c04a63-871b-40c6-9164-852676190a4d" name="Loop Start1" type="LoopStart">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" />
+    <onsuccess>9ae7db79-aee3-4612-b91f-494aa958c3a2</onsuccess>
+    <groupid>d1bf641a-a725-476d-b056-773cf7620946</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>phones details</loopdata>
+  </stage>
+  <stage stageid="dea71069-8d37-4afd-ae6b-9fc63e11e4bd" name="Loop End1" type="LoopEnd">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="315" />
+    <onsuccess>a63daad1-dbe5-4589-95d4-567cff9edf53</onsuccess>
+    <groupid>d1bf641a-a725-476d-b056-773cf7620946</groupid>
+  </stage>
+  <stage stageid="a63daad1-dbe5-4589-95d4-567cff9edf53" name="MS Excel VBO::Write Collection" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="375" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the specified collection should be written. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection containing the data which should be written to the worksheet." expr="[phones details]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook within which the data should be written. The default empty value indicates the current workbook within the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet on which the given data should be written. The default empty value indicates the current sheet within the specified workbook." expr="&quot;Sheet1&quot;" />
+      <input type="text" name="Cell Reference" friendlyname="Cell Reference" narrative="The reference at which the collection should be written." expr="&quot;A2&quot;" />
+      <input type="flag" name="Include Column Names" friendlyname="Include Column Names" narrative="True to indicate that the column names from the collection should be written out as the first row; False to ignore the column names and just write out the data." expr="" />
+    </inputs>
+    <onsuccess>2e63cb31-d9de-45bc-906a-bda14aae6d6c</onsuccess>
+    <resource object="MS Excel VBO" action="Write Collection" />
+  </stage>
+  <stage stageid="2e63cb31-d9de-45bc-906a-bda14aae6d6c" name="MS Excel VBO::Close Instance" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="105" y="375" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance to be closed. Zero indicates the currently active instance." expr="[handle]" />
+      <input type="flag" name="Save Changes" friendlyname="Save Changes" narrative="True to save the changes to the open workbooks on the instance, False to discard any changes. Default is False." expr="True" />
+    </inputs>
+    <onsuccess>f9c95254-f5a7-4887-a7c2-a9122a8d2909</onsuccess>
+    <resource object="MS Excel VBO" action="Close Instance" />
+  </stage>
+  <stage stageid="9323800c-6bc7-4ae2-82d9-d7eaf3a0494a" name="phones details" type="Collection">
+    <loginhibit />
+    <display x="435" y="-60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="phone model" type="text" />
+      <field name="phone cost" type="text" />
+      <field name="phone rating" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="phone model" type="text" value="" />
+        <field name="phone cost" type="text" value="" />
+        <field name="phone rating" type="text" value="" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="9ae7db79-aee3-4612-b91f-494aa958c3a2" name="project data scrapping::action" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="255" />
+    <onsuccess>dea71069-8d37-4afd-ae6b-9fc63e11e4bd</onsuccess>
+    <resource object="project data scrapping" action="action" />
+  </stage>
+  <stage stageid="f9c95254-f5a7-4887-a7c2-a9122a8d2909" name="project data scrapping::terminate" type="Action">
+    <loginhibit onsuccess="true" />
+    <display x="195" y="375" />
+    <onsuccess>249065db-1ca4-49ee-9c59-6be0af714324</onsuccess>
+    <resource object="project data scrapping" action="terminate" />
+  </stage>
+  <stage stageid="249065db-1ca4-49ee-9c59-6be0af714324" name="Alert1" type="Alert">
+    <loginhibit onsuccess="true" />
+    <display x="300" y="375" />
+    <onsuccess>478c0dd4-8216-4ca3-9e38-3135336de0df</onsuccess>
+    <alert expression="" />
+  </stage>
+</process>
